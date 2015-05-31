@@ -1,5 +1,5 @@
 /**
- * Created by Brad on 5/16/15.
+ * Created by Brad and Jesse on 5/16/15.
  */
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +13,6 @@ public class Triangulation extends JFrame {
   private JCheckBox lineOfSight;
   private int wid, len;
 
-  private int count = 0;
   private int pixelsToFeet = 20;
 
   /** Constructor to setup the GUI components */
@@ -91,16 +90,18 @@ public class Triangulation extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         // JFrame frame = new JFrame("Results");
-        Result r = new Result(Integer.parseInt(tfX1.getText()),
-            Integer.parseInt(tfX2.getText()),
-            Integer.parseInt(tfX3.getText()),
-            Integer.parseInt(tfY1.getText()),
-            Integer.parseInt(tfY2.getText()),
-            Integer.parseInt(tfY3.getText()),
-            Integer.parseInt(tfRead1.getText()),
-            Integer.parseInt(tfRead2.getText()),
-            Integer.parseInt(tfRead3.getText()),
-            lineOfSight.isSelected());
+        Result r = new Result(Integer.parseInt(tfWidth.getText()),
+                              Integer.parseInt(tfLength.getText()),
+                              Integer.parseInt(tfX1.getText()),
+                              Integer.parseInt(tfX2.getText()),
+                              Integer.parseInt(tfX3.getText()),
+                              Integer.parseInt(tfY1.getText()),
+                              Integer.parseInt(tfY2.getText()),
+                              Integer.parseInt(tfY3.getText()),
+                              Integer.parseInt(tfRead1.getText()),
+                              Integer.parseInt(tfRead2.getText()),
+                              Integer.parseInt(tfRead3.getText()),
+                              lineOfSight.isSelected());
         wid = Integer.parseInt(tfWidth.getText());
         len = Integer.parseInt(tfLength.getText());
         //r.setSize(wid, len);

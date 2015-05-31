@@ -1,5 +1,5 @@
 /**
- * Created by Brad on 5/16/15.
+ * Created by Brad and Jesse on 5/16/15.
  */
 
 import java.awt.*;
@@ -9,7 +9,7 @@ import java.lang.Double;
 
 public class Result extends JFrame {
 
-  private int x1, x2, x3, y1, y2, y3, d1, d2, d3, r1, r2, r3;
+  private int wid, len, x1, x2, x3, y1, y2, y3, d1, d2, d3, r1, r2, r3;
   private int pixelsToFeet = 20;
   private boolean los;
   private double slopeLOS = -5.935;
@@ -19,12 +19,14 @@ public class Result extends JFrame {
 
   Result() {
     super();
-    x1 = x2 = x3 = y1 = y2 = y3 = d1 = d2 = d3 = r1 = r2 = r3 = 0;
+    wid = len = x1 = x2 = x3 = y1 = y2 = y3 = d1 = d2 = d3 = r1 = r2 = r3 = 0;
     los = false;
   }
 
-  Result(int x, int xx, int xxx, int y, int yy, int yyy, int r, int rr, int rrr, boolean lineOfSight) {
+  Result(int w, int l, int x, int xx, int xxx, int y, int yy, int yyy, int r, int rr, int rrr, boolean lineOfSight) {
     //super();
+    wid = w * pixelsToFeet;
+    len = l * pixelsToFeet;
     x1 = x * pixelsToFeet;
     x2 = xx * pixelsToFeet;
     x3 = xxx * pixelsToFeet;
@@ -41,6 +43,13 @@ public class Result extends JFrame {
   public void paint(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
 
+    for (int i = 0; i < len; i += 100) {
+      g2d.drawLine(0, i, wid, i);
+    }
+    for (int i = 0; i < wid; i += 100) {
+      g2d.drawLine(i, 0, i, len);
+    }
+
 
     if (los) {
       d1 = distanceCalcLOS(r1);                                             //calls the distanceCalcLOS method to calculate
@@ -53,12 +62,15 @@ public class Result extends JFrame {
       d3 = distanceCalcNoLOS(r3);
     }
     System.out.print(d1 + " " + d2 + " " + d3);
-    g2d.drawOval(x1-(d1/2), y1-(d1/2), d1, d1);                             //draws the first circle to indicate signal strength
-    g2d.drawOval(x1-(d1/60), y1-(d1/60), d1/30, d1/30);                     //draws the location the signal was recorded from
-    g2d.drawOval(x2-(d2/2), y2-(d2/2), d2, d2);                             //draws the second circle to indicate signal strength
-    g2d.drawOval(x2-(d2/60), y2-(d2/60), d2/30, d2/30);                     //draws the location the signal was recorded from
-    g2d.drawOval(x3-(d3/2), y3-(d3/2), d3, d3);                             //draws the third circle to indicate signal strength
-    g2d.drawOval(x3-(d3/60), y3-(d3/60), d3/30, d3/30);                     //draws the location the signal was recorded from
+    g2d.setColor(Color.GREEN);
+    g2d.drawOval(x1 - (d1 / 2), y1 - (d1 / 2), d1, d1);                     //draws the first circle to indicate signal strength
+    g2d.fillOval(x1 - (d1 / 60), y1 - (d1 / 60), d1 / 30, d1 / 30);         //draws the location the signal was recorded from
+    g2d.setColor(Color.BLUE);
+    g2d.drawOval(x2 - (d2 / 2), y2 - (d2 / 2), d2, d2);                     //draws the second circle to indicate signal strength
+    g2d.fillOval(x2 - (d2 / 60), y2 - (d2 / 60), d2 / 30, d2 / 30);         //draws the location the signal was recorded from
+    g2d.setColor(Color.RED);
+    g2d.drawOval(x3 - (d3 / 2), y3 - (d3 / 2), d3, d3);                     //draws the third circle to indicate signal strength
+    g2d.fillOval(x3 - (d3 / 60), y3 - (d3 / 60), d3 / 30, d3 / 30);         //draws the location the signal was recorded from
   }
 
   private int distanceCalcLOS(int signal)                                   //uses a logarithmic formula to calculate
